@@ -42,7 +42,7 @@ public class UsuarioControllerTest {
                 .then()
                 .extract().response();
         //
-        assertEquals(200, resposta.statusCode());
+        assertEquals(201, resposta.statusCode());
         assertNotNull(resposta.jsonPath().getString("nome"));
         assertNotNull(resposta.jsonPath().getString("idade"));
     }
