@@ -1,14 +1,16 @@
 pipeline {
    agent any;
    stages {
-      stage('Olá mundo') {
+      stage('Testes Unitarios') {
           steps {
-              echo 'Teste de mensagem'
+              echo 'Iniciando testes...'
+              bat 'mvn test'
           }
       }
-      stage('Olá mundo 2') {
+      stage('Build do Projeto') {
           steps {
-              echo 'Teste de mensagem'
+              echo 'Iniciando Build...'
+              bat ' mvn clean package -DskipTests=true'
           }
       }
    }
