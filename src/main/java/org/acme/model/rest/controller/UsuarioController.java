@@ -29,7 +29,7 @@ public class UsuarioController {
     private UsuarioMapper mapper;
 
     @POST
-    @Operation(summary = "Cria um Usuario")
+    @Operation(summary = "Cria um Usuario novo")
     @APIResponses(value = {
             @APIResponse(responseCode = "201", description = "Usuário cadastrado com sucesso",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON,
