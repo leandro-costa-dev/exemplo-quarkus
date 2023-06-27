@@ -1,16 +1,20 @@
 pipeline {
    agent any;
+   tools {
+      jdk 'JDK_17.0.7'
+      maven 'MAVEN_3.8.8'
+   }
    stages {
+      stage('Build do Projeto') {
+         steps {
+              echo 'Iniciando Build...'
+              bat ' ./mvnw clean package -DskipTests=true'
+             }
+         }
       stage('Testes Unitarios') {
           steps {
               echo 'Iniciando testes...'
-              bat 'mvn test'
-          }
-      }
-      stage('Build do Projeto') {
-          steps {
-              echo 'Iniciando Build...'
-              bat ' mvn clean package -DskipTests=true'
+              bat './mvnw verify'
           }
       }
       stage('Imagem Docker') {
