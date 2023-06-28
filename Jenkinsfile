@@ -30,11 +30,14 @@ pipeline {
            }
       }
 
-      stage('Sonar Quality Gate') {
-          steps {
-               echo 'Iniciando Analise de qualidade...'
-          }
-     }
+      stage('Sonar QualityGate') {
+            steps {
+                sleep(5)
+                timeout(time: 1, unit: 'MINUTES'){
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+      }
    }
 }
 
