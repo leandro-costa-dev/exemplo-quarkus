@@ -25,7 +25,7 @@ pipeline {
            steps {
                 withSonarQubeEnv('Sonar'){
                    echo 'Iniciando Analise do código...'
-                   bat '${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=pipeline-quarkus -Dsonar.host.url=http://localhost:9000 -Dsonar.login=9cf3dedcb948ba1f10bccfd24e6a1125396d53d9 -Dsonar.java.binaries=target -Dsonar.coverage.exclusions=**/.mvn/**,**/src/test/**,**/entity/**,**/dto/**,MavenWrapperDownloader.java'
+                   bat "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=pipeline-quarkus -Dsonar.host.url=http://192.168.100.10:9000 -Dsonar.login=9cf3dedcb948ba1f10bccfd24e6a1125396d53d9 -Dsonar.java.binaries=target -Dsonar.coverage.exclusions=**/.mvn/**,**/src/test/**,**/entity/**,**/dto/**,MavenWrapperDownloader.java"
                 }
            }
       }
