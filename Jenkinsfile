@@ -29,7 +29,6 @@ pipeline {
       stage('Sonar Quality Gate') {
           steps {
                echo 'Iniciando Analise de qualidade...'
-               bat
           }
      }
    }
