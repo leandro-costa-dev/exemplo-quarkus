@@ -1,13 +1,15 @@
-version: '3'
+version: "3"
 services:
-  banco-teste:
-    container_name: banco-docker
-    image: postgres
-    restart: always
+  suporte-quarkus-backend:
+    container_name: exemplo-quarkus
+    image: exemplo-quarkus:latest
+    build:
+      context: .
+      dockerfile: src/main/docker/Dockerfile.jvm
+      args:
+        - JAR_FILE=target/exemplo-quarkus-1.0.0-SNAPSHOT.jar
+        - CONTEXT=exemplo-quarkus
     ports:
-      - 5433:5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: teste
-      POSTGRES_DB: quarkus-docker
-
+      - 8088:8080
+    env_file:
+      - .env

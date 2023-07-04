@@ -38,10 +38,10 @@ pipeline {
                 }
             }
       }
-      stage('Testes Docker') {
+      stage('Deploy Docker') {
             steps {
-                echo 'Iniciando Docker...'
-                bat 'docker ps'
+                echo 'Realizando Deploy no Docker...'
+                bat ' docker-compose up --build -d'
             }
       }
    }
