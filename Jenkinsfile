@@ -38,7 +38,7 @@ pipeline {
                 }
             }
       }
-      stage('Deploy Docker') {
+      stage('Deploy do Docker') {
             steps {
                 echo 'Realizando Deploy no Docker...'
                 bat ' docker-compose up --build -d'
