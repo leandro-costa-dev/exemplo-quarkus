@@ -38,6 +38,12 @@ pipeline {
                 }
             }
       }
+      stage('Testes Docker') {
+            steps {
+                echo 'Iniciando Docker...'
+                bat 'docker ps'
+            }
+      }
    }
 }
 
