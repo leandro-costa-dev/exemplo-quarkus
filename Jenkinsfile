@@ -56,5 +56,18 @@ pipeline {
             }
       }
    }
+   post{
+       always{
+           junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+       }
+       unsuccessful {
+            emailext attachLog: true, body: 'LOG:', subject: 'BUILD $BUILD_NUMBER exemplo-quarkus - Pipeline executada com Erro(s)!', to: 'costaleandro1987@gmail.com'
+
+       }
+       fixed {
+            emailext attachLog: true, body: 'LOG:', subject: 'BUILD $BUILD_NUMBER exemplo-quarkus - Pipeline executada com Sucesso!', to: 'costaleandro1987@gmail.com'
+       }
+   }
+
 }
 
