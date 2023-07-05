@@ -38,10 +38,20 @@ pipeline {
                 }
             }
       }
-      stage('Deploy do Docker') {
+
+      stage('Deploy Docker') {
             steps {
                 echo 'Realizando Deploy no Docker...'
-                bat ' docker-compose up --build -d'
+                bat ' docker-compose build'
+                bat ' docker-compose up -d'
+            }
+      }
+
+      stage('Limpar Docker') {
+            steps {
+                echo 'Realizando Limpeza do Docker...'
+                bat ' docker system prune -f'
+                bet ' docker ps'
             }
       }
    }
