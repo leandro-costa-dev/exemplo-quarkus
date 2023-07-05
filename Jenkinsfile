@@ -47,11 +47,12 @@ pipeline {
             }
       }
 
-      stage('Limpar Docker') {
+      stage('Limpar Cache do Docker') {
             steps {
                 echo 'Realizando Limpeza do Docker...'
+                sleep(10)
                 bat ' docker system prune -f'
-                bet ' docker ps'
+                bat ' docker ps'
             }
       }
    }
