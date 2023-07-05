@@ -27,7 +27,7 @@ public class UsuarioControllerTest {
     private static final Logger LOG = LoggerFactory.getLogger(UsuarioControllerTest.class);
 
     @Test
-    @DisplayName("Deve Criar usuário POST com sucesso")
+    @DisplayName("Deve Criar um usuário POST com sucesso")
     public void criarUsuarioTeste() {
         var userDTO = new UsuarioDTO();
         userDTO.setIdade(15);
