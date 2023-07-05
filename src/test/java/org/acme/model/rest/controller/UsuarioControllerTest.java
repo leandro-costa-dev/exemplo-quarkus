@@ -59,7 +59,7 @@ public class UsuarioControllerTest {
                 .then()
                 .extract().response();
 
-        assertEquals(204, resposta.statusCode());
+        assertEquals(201, resposta.statusCode());
     }
 
     @Test
