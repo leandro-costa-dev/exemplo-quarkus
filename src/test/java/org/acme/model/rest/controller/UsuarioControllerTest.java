@@ -23,10 +23,25 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UsuarioControllerTest {
 
     //private static final String Path_NovoUsuario = "src/main/teste/mock-json/novo-usuario.json";
-    private static final String Path_Json = "{\"nome\":\"Joao da Silva\", \"cpf\": \"05817441950\", \"idade\": 35}";
+    private static final String Path_Json = "{\"nome\":\"Joao da Silva\", \"cpf\": \"43410267042\", \"idade\": 35}";
     private static final Logger LOG = LoggerFactory.getLogger(UsuarioControllerTest.class);
 
     @Test
+    @Order(1)
+    @DisplayName("Deve retornar lista vazia com sucesso")
+    public void ListaVaziaUsuarios() {
+        var resposta = given()
+                .contentType(MediaType.APPLICATION_JSON)
+                .when()
+                .get()
+                .then()
+                .extract().response();
+
+        assertEquals(204, resposta.statusCode());
+    }
+
+    @Test
+    @Order(2)
     @DisplayName("Deve Criar um usuário POST com sucesso")
     public void criarUsuarioTeste() {
         var userDTO = new UsuarioDTO();
@@ -47,23 +62,8 @@ public class UsuarioControllerTest {
         assertNotNull(resposta.jsonPath().getString("idade"));
     }
 
-    //------------------------------------------------------------------------
     @Test
-    @Order(1)
-    @DisplayName("Deve retornar lista vazia com sucesso")
-    public void ListaVaziaUsuarios() {
-        var resposta = given()
-                .contentType(MediaType.APPLICATION_JSON)
-                .when()
-                .get()
-                .then()
-                .extract().response();
-
-        assertEquals(204, resposta.statusCode());
-    }
-
-    @Test
-    @Order(2)
+    @Order(3)
     @DisplayName("Deve Criar usuário POST com sucesso")
     public void criarUsuarioTestExemplo() throws JsonProcessingException {
 
@@ -83,14 +83,14 @@ public class UsuarioControllerTest {
 
         assertEquals(201, resposta.statusCode());
         assertEquals("Joao da Silva", resposta.jsonPath().getString("nome"));
-        assertEquals("05817441950", resposta.jsonPath().getString("cpf"));
+        assertEquals("43410267042", resposta.jsonPath().getString("cpf"));
         assertEquals("35", resposta.jsonPath().getString("idade"));
         assertNotNull(resposta.jsonPath().getString("nome"));
         assertNotNull(resposta.jsonPath().getString("idade"));
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     @DisplayName("Deve retornar lista com um usuário com sucesso")
     public void ListarTodosUsuarios() {
         var resposta = given()
@@ -98,14 +98,36 @@ public class UsuarioControllerTest {
                 .when()
                 .get()
                 .then()
-                .body("size()", Matchers.is(1))
+                .body("size()", Matchers.is(2))
                 .extract().response();
 
         assertEquals(200, resposta.statusCode());
     }
 
     @Test
-    @Order(4)
+    @Order(5)
+    @DisplayName("Deve retornar lista de usuário com filtro")
+    public void ListarUsuariosComFiltro() {
+
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.setNome("Thiago junior");
+
+        var resposta = given()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(usuarioDTO)
+                .when()
+                .get("/filtro")
+                .then()
+                .extract().response();
+
+        String mensagemRetorno = resposta.getBody().asString();
+        LOG.info("LOG: " + mensagemRetorno);
+
+        assertEquals(200, resposta.statusCode());
+    }
+
+    @Test
+    @Order(6)
     @DisplayName("Não deve deletar um usuário com id inexistente")
     public void NaoDeletarUsuario() {
         var resposta = given()
@@ -120,7 +142,7 @@ public class UsuarioControllerTest {
     }
 
     @Test
-    @Order(5)
+    @Order(7)
     @DisplayName("Deve atualizar um usuário com sucesso")
     public void AtualizarUsuario() {
         UsuarioDTO userDTO = new UsuarioDTO();
@@ -143,7 +165,7 @@ public class UsuarioControllerTest {
     }
 
     @Test()
-    @Order(6)
+    @Order(8)
     @DisplayName("Não deve atualizar um usuário inexistente")
     public void AtualizarUsuarioInexistente() {
         UsuarioDTO userDTO = new UsuarioDTO();
@@ -165,7 +187,7 @@ public class UsuarioControllerTest {
         }
 
         @Test
-        @Order(7)
+        @Order(9)
         @DisplayName("Deve deletar um usuário com sucesso")
         public void DeletarUsuario () {
             var resposta = given()
