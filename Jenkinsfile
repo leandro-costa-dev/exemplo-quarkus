@@ -32,7 +32,7 @@ pipeline {
 
       stage('Sonar QualityGate') {
             steps {
-                sleep(5)
+                sleep(10)
                 timeout(time: 1, unit: 'MINUTES'){
                     waitForQualityGate abortPipeline: true
                 }
@@ -57,16 +57,18 @@ pipeline {
       }
    }
    post{
-       always{
-           junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
-       }
-       unsuccessful {
-            emailext attachLog: true, body: 'LOG:', subject: 'BUILD $BUILD_NUMBER exemplo-quarkus - Pipeline executada com Erro(s)!', to: 'costaleandro1987@gmail.com'
+           always {
+               script {
+                   if (currentBuild.result == 'FAILURE') {
+                       echo "Build Com erro(s)!"
+                       emailext attachLog: true, body: 'LOG:', subject: "BUILD ${BUILD_NUMBER} exemplo-quarkus Pipeline executada com Erro(s)!", to: 'costaleandro1987@gmail.com'
 
-       }
-       fixed {
-            emailext attachLog: true, body: 'LOG:', subject: 'BUILD $BUILD_NUMBER exemplo-quarkus - Pipeline executada com Sucesso!', to: 'costaleandro1987@gmail.com'
-       }
-   }
+                   } else {
+                       echo "Build bem-sucedido!"
+                       emailext attachLog: true, body: 'LOG:', subject: "BUILD ${BUILD_NUMBER} exemplo-quarkus Pipeline Executada com Sucesso!", to: 'costaleandro1987@gmail.com'
+                   }
+               }
+           }
+      }
 }
 
