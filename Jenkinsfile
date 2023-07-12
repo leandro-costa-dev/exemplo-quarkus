@@ -68,6 +68,5 @@ pipeline {
             emailext attachLog: true, body: 'LOG:', subject: 'BUILD $BUILD_NUMBER exemplo-quarkus - Pipeline executada com Sucesso!', to: 'costaleandro1987@gmail.com'
        }
    }
-
 }
 

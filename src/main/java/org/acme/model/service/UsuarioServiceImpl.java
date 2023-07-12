@@ -41,6 +41,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    public List<Usuario> listarFiltros(UsuarioDTO usuarioDTO) {
+        return usuarioRespository.consultaComFiltro(usuarioDTO);
+    }
+
+    @Override
     @Transactional
     public boolean deletarUsuario(Long id) {
         Usuario usuario = usuarioRespository.findById(id);

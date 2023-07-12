@@ -11,6 +11,8 @@ public interface UsuarioService {
 
     List<Usuario> listarTodos();
 
+    List<Usuario> listarFiltros(UsuarioDTO usuarioDTO);
+
     boolean deletarUsuario(Long id);
 
     Usuario atualizarUsuario(Long id, UsuarioDTO dto);

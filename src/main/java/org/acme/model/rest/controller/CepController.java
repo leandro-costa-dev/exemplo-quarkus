@@ -24,5 +24,4 @@ public class CepController {
         EnderecoDTO enderecoDTO = cepClient.getEndereco(cep);
         return Response.ok(enderecoDTO).build();
     }
-
 }

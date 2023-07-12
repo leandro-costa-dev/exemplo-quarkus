@@ -7,6 +7,7 @@ import org.acme.model.service.UsuarioServiceImpl;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
@@ -55,6 +56,19 @@ public class UsuarioController {
         }
             return Response.ok(listaUsuariosDTO).build();
     }
+
+    @GET
+    @Path("/filtro")
+    public Response listarComFiltros(@RequestBody UsuarioDTO usuarioDTO) {
+
+        List<UsuarioDTO> listaUsuariosDTO = mapper.ConverterListaUsuarioDTO(service.listarFiltros(usuarioDTO));
+
+        if(listaUsuariosDTO.isEmpty()) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+        return Response.ok(listaUsuariosDTO).build();
+    }
+
 
     @DELETE
     @Path("{id}")
